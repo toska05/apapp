@@ -40,8 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future signUp() async {
     if (passwordConfirmed()){
       //create user
-      // final credentials = 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final credentials = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -51,14 +50,14 @@ class _RegisterPageState extends State<RegisterPage> {
         _firstNameController.text.trim(),
         _lastNameController.text.trim(),
         _emailController.text.trim(),
-        // credentials.user!.uid.trim(),
+        credentials.user!.uid.trim(),
         int.parse(_ageController.text.trim()), //converts int to text
       );
     }
   }
 
-  Future addUserDetails(String firstName, String lastName, String email, int age) async {   //STring uid
-    await FirebaseFirestore.instance.collection('users').add({ //doc('uid').set 
+  Future addUserDetails(String firstName, String lastName, String email, String uid, int age) async {   //STring uid
+    await FirebaseFirestore.instance.collection('users').doc('uid').set({ //doc('uid').set 
         'first name': firstName,
         'last name': lastName,
         'email': email,
