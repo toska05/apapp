@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
+  //hi
   final VoidCallback showLoginPage;
   const RegisterPage({
     Key? key,
