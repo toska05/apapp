@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:apapp/pages/home_page.dart';
 import 'package:apapp/pages/profile_page.dart';
 import 'package:apapp/pages/bookings_page.dart';
+import 'package:apapp/pages/compass_page.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _NavBarState extends State<NavBar> {
     HomePage(),
     BookingsPage(),
     ProfilePage(),
+    CompassPage(),
   ];
 
   @override
@@ -36,16 +38,20 @@ class _NavBarState extends State<NavBar> {
           child: GNav(
             tabs: const [
               GButton(
-                icon: Icons.home,
-                text: 'Home',
+                icon: Icons.cloud,
+                text: 'Weather',
               ),
               GButton(
-                icon: Icons.book,
-                text: 'Bookings',
+                icon: Icons.location_on,
+                text: 'Location',
               ),
               GButton(
-                icon: Icons.person,
-                text: 'Profile',
+                icon: Icons.pets,
+                text: 'Wildlife',
+              ),
+              GButton(
+                icon: Icons.explore, 
+                text: 'Compass'
               ),
             ],
 
