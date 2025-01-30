@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+// Stateful widget for the Identified Image Page
 class IdentifiedImagePage extends StatefulWidget {
   final XFile? image;
 
@@ -15,17 +16,23 @@ class IdentifiedImagePage extends StatefulWidget {
 
 class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
   String? plantName;
-  String? description;
+  String? commonNames;
   double? confidence;
+  List<dynamic> plants = [];
+  String? family;
+  String? genus;
 
   @override
   void initState() {
     super.initState();
+
+    // If an image is provided, start the plant identification process
     if (widget.image != null) {
       identifyPlant();
     }
   }
 
+  // Function to identify the plant using an API
   Future<void> identifyPlant() async {
     if (widget.image == null) return;
 
@@ -50,14 +57,20 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
               plantName = responseData['results'][0]['species']
                       ['scientificNameWithoutAuthor'] ??
                   "Unknown";
-              description = (responseData['results'][0]['species']
+              commonNames = (responseData['results'][0]['species']
                           ['commonNames'] as List?)
                       ?.join(', ') ??
                   "No common names available";
               confidence = (responseData['results'][0]['score'] ?? 0) * 100;
+              family = responseData['results'][0]['species']['family']
+                      ['scientificName'] ??
+                  "Unknown";
+              genus = responseData['results'][0]['species']['genus']
+                      ['scientificName'] ??
+                  "Unknown";
             } else {
               plantName = "Unknown";
-              description = "Could not identify the plant.";
+              commonNames = "Could not identify the plant.";
               confidence = 0;
             }
           });
@@ -70,7 +83,7 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
       if (mounted) {
         setState(() {
           plantName = "Unknown";
-          description = "Could not identify the plant.";
+          commonNames = "Could not identify the plant.";
           confidence = 0;
         });
       }
@@ -113,7 +126,7 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                     children: [
                       Row(
                         children: [
-                          if (confidence != null && confidence! > 75)
+                          if (confidence != null && confidence! > 70)
                             const Icon(Icons.check_circle, color: Colors.green)
                           else if (confidence != null && confidence! > 50)
                             const Icon(Icons.warning, color: Colors.orange)
@@ -127,7 +140,7 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                             style: TextStyle(
                               fontSize: 16,
                               color: confidence != null
-                                  ? (confidence! > 75
+                                  ? (confidence! > 70
                                       ? Colors.green[700]
                                       : (confidence! > 50
                                           ? Colors.orange[700]
@@ -137,16 +150,40 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       Text(
                         plantName ?? "Identifying...",
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 20),
-                      Text(
-                        description ?? "Fetching description...",
-                        style: const TextStyle(fontSize: 16),
+                      const SizedBox(height: 10),
+                      Text.rich(
+                        TextSpan(
+                          style: const TextStyle(fontSize: 16),
+                          children: [
+                            if (commonNames != null) ...[
+                              const TextSpan(
+                                  text: "Common Names: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(text: "$commonNames\n"),
+                            ],
+                            if (family != null) ...[
+                              const TextSpan(
+                                  text: "Family: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(text: "$family\n"),
+                            ],
+                            if (genus != null) ...[
+                              const TextSpan(
+                                  text: "Genus: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              TextSpan(text: "$genus"),
+                            ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
