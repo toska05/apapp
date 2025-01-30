@@ -5,6 +5,7 @@ import 'package:apapp/pages/home_page.dart';
 import 'package:apapp/pages/profile_page.dart';
 import 'package:apapp/pages/bookings_page.dart';
 import 'package:apapp/pages/compass_page.dart';
+import 'package:apapp/pages/image_recognition/camera.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -17,54 +18,47 @@ class _NavBarState extends State<NavBar> {
   final List<Widget> _screens = <Widget>[
     HomePage(),
     BookingsPage(),
-    ProfilePage(),
+    Camera(),
     CompassPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       appBar: AppBar(),
-
       body: Center(
         child: _screens.elementAt(_currentIndex),
       ),
-
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
           child: GNav(
-            tabs: const [
-              GButton(
-                icon: Icons.cloud,
-                text: 'Weather',
-              ),
-              GButton(
-                icon: Icons.location_on,
-                text: 'Location',
-              ),
-              GButton(
-                icon: Icons.pets,
-                text: 'Wildlife',
-              ),
-              GButton(
-                icon: Icons.explore, 
-                text: 'Compass'
-              ),
-            ],
-
-            selectedIndex: _currentIndex,
-            onTabChange: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            }
-          ),
+              activeColor: Colors.green[600]!,
+              tabs: const [
+                GButton(
+                  icon: Icons.cloud,
+                  text: 'Weather',
+                ),
+                GButton(
+                  icon: Icons.location_on,
+                  text: 'Location',
+                ),
+                GButton(
+                  icon: Icons.pets,
+                  text: 'Wildlife',
+                ),
+                GButton(icon: Icons.explore, text: 'Compass'),
+              ],
+              selectedIndex: _currentIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              }),
         ),
       ),
     );
   }
 }
-
