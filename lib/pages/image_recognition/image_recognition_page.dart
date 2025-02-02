@@ -19,7 +19,7 @@ class ImageRecognitionPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const Camera();
+                    return const Camera(type: "plant");
                   },
                 ),
               );
@@ -43,7 +43,7 @@ class ImageRecognitionPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const Camera();
+                    return const Camera(type: "animal");
                   },
                 ),
               );

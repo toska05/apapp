@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 
 class Camera extends StatefulWidget {
   /// Default Constructor
-  const Camera({super.key});
+  final String type; //plant or animal
+  const Camera({super.key, required this.type});
 
   @override
   State<Camera> createState() {
@@ -64,7 +65,7 @@ class _CameraState extends State<Camera> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              IdentifiedImagePage(image: pickedFile),
+                              IdentifiedImagePage(image: pickedFile, type: widget.type),
                         ),
                       );
                     }
@@ -86,7 +87,7 @@ class _CameraState extends State<Camera> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            IdentifiedImagePage(image: picture),
+                            IdentifiedImagePage(image: picture, type: widget.type),
                       ),
                     );
                   },
