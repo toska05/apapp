@@ -37,7 +37,7 @@ class _NavBarState extends State<NavBar> {
             padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 5.0),
             child: Expanded(
               child: GNav(
-                  activeColor: Colors.green[600]!,
+                  activeColor: Colors.green[400],
                   tabs: const [
                     GButton(
                       icon: Icons.cloud,
