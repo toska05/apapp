@@ -1,4 +1,5 @@
 import 'package:apapp/components/my_drawer.dart';
+import 'package:apapp/pages/weather/weather_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:apapp/pages/home_page.dart';
@@ -17,7 +18,7 @@ class _NavBarState extends State<NavBar> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = <Widget>[
-    HomePage(),
+    WeatherPage(),
     BookingsPage(),
     const ImageRecognitionPage(),
     CompassPage(),
@@ -26,8 +27,21 @@ class _NavBarState extends State<NavBar> {
   @override
 Widget build(BuildContext context) {
   return Scaffold(
-    drawer: const MyDrawer(),
-    appBar: AppBar(),
+    appBar: AppBar(
+      title: const Text('Campapp'),
+      backgroundColor: Colors.green[400],
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          },
+          icon: const Icon(Icons.account_circle),
+        ),
+      ],
+    ),
     body: Center(
       child: _screens.elementAt(_currentIndex),
     ),
