@@ -46,7 +46,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 26, 14, 84),
+        backgroundColor: Colors.green[300],
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -96,7 +96,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 color: Colors.white,
               ),
             ),
-            color: const Color.fromARGB(255, 26, 14, 84),
+            color: Colors.green[300],
           )
         ],
       )

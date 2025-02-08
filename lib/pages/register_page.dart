@@ -80,7 +80,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -118,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'First Name',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   )
@@ -141,7 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Last Name',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   )
@@ -164,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Age',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   )
@@ -186,7 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Email',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   )
@@ -210,7 +209,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Password',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -244,7 +243,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Confirm Password',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -270,7 +269,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 26, 14, 84),
+                        color: Colors.green[300],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -305,7 +304,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Text(
                         'Log in',
                         style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.green[300],
                         fontWeight: FontWeight.bold,
                         ),
                       ),
