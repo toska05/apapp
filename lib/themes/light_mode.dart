@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
+  scaffoldBackgroundColor: const Color(0xFFF9FCFA),
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(color: Colors.white),
     titleTextStyle: TextStyle(
