@@ -33,7 +33,7 @@ class ImageRecognitionPage extends StatelessWidget {
             ),
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
-              backgroundColor: Colors.green[600],
+              backgroundColor: Colors.green[400],
             ),
           ),
           SizedBox(height: 20),
@@ -57,7 +57,7 @@ class ImageRecognitionPage extends StatelessWidget {
             ),
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
-              backgroundColor: Colors.green[600],
+              backgroundColor: Colors.green[400],
             ),
           ),
         ],

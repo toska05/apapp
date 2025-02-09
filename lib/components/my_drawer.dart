@@ -1,5 +1,5 @@
 import 'package:apapp/unused_pages/maps_page.dart';
-import 'package:apapp/unused_pages/settings_page.dart';
+import 'package:apapp/pages/profile/profile_page.dart';
 import 'package:apapp/pages/weather/weather_page.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +79,7 @@ class MyDrawer extends StatelessWidget {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SettingsPage())
+                      MaterialPageRoute(builder: (context) => ProfilePage())
                     );
                   },
                 ),

@@ -58,10 +58,30 @@ dependencies:
   google_mlkit_image_labeling: ^0.13.0
   path: ^1.9.0
   path_provider: ^2.1.5
+  firebase_storage: ^12.3.6
+  flutter_native_splash: ^2.4.4
+
+
+flutter_native_splash:
+  color: "#F9FCFA"
+  image: "assets/logo-title_600.png"
+  android: true
+  ios: true
+  web: false
+
+  android_12:
+    color: "#F9FCFA"
+    image: "assets/logo-title_600.png"
+    
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.14.3"
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  image_path_android: "assets/logo.png"
+  android: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

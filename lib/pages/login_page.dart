@@ -35,18 +35,14 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.airplanemode_active_sharp,
-                  size: 100,
-                ),
-                const SizedBox(height: 50),
+                Image.asset("assets/logo.png", height: 150),
+                const SizedBox(height: 10),
                 Text(
                   'Hello Again',
                   style: GoogleFonts.bebasNeue(
@@ -101,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Password',
-                      fillColor: Colors.grey[200],
+                      fillColor: Colors.grey[100],
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -130,10 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     'Forgot Password?',
                     style: TextStyle(
-                    color: Colors.blue,
+                    color: Colors.green[300]!,
                     fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -149,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       padding: EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 26, 14, 84),
+                        color: Colors.green[300],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -184,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         'Register Now',
                         style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.green[300]!,
                         fontWeight: FontWeight.bold,
                         ),
                       ),
