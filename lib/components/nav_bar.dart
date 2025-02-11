@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 // import 'package:apapp/pages/home_page.dart';
 import 'package:apapp/pages/profile/profile_page.dart';
-import 'package:apapp/pages/bookings_page.dart';
+import 'package:apapp/pages/maps/maps_page.dart';
 import 'package:apapp/pages/compass_page.dart';
 // import 'package:apapp/pages/image_recognition/camera.dart';
 import 'package:apapp/pages/image_recognition/image_recognition_page.dart';
@@ -19,7 +19,7 @@ class _NavBarState extends State<NavBar> {
 
   final List<Widget> _screens = <Widget>[
     WeatherPage(),
-    BookingsPage(),
+    MapsPage(),
     const ImageRecognitionPage(),
     CompassPage(),
   ];
