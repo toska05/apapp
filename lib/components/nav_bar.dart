@@ -1,12 +1,12 @@
-import 'package:apapp/components/my_drawer.dart';
+// import 'package:apapp/components/my_drawer.dart';
 import 'package:apapp/pages/weather/weather_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:apapp/pages/home_page.dart';
+// import 'package:apapp/pages/home_page.dart';
 import 'package:apapp/pages/profile/profile_page.dart';
 import 'package:apapp/pages/bookings_page.dart';
 import 'package:apapp/pages/compass_page.dart';
-import 'package:apapp/pages/image_recognition/camera.dart';
+// import 'package:apapp/pages/image_recognition/camera.dart';
 import 'package:apapp/pages/image_recognition/image_recognition_page.dart';
 
 class NavBar extends StatefulWidget {
