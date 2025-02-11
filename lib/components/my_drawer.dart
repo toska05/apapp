@@ -1,4 +1,4 @@
-import 'package:apapp/unused_pages/maps_page.dart';
+import 'package:apapp/pages/maps/maps_page.dart';
 import 'package:apapp/pages/profile/profile_page.dart';
 import 'package:apapp/pages/weather/weather_page.dart';
 import 'package:flutter/material.dart';
