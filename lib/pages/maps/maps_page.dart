@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:apapp/pages/maps/consts.dart';
+// import 'package:apapp/pages/maps/consts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -22,19 +22,19 @@ class _MapsPageState extends State<MapsPage> {
   static const LatLng _pApplePark = LatLng(36, -122);
   LatLng? _currentP = null;
 
-  Map<PolylineId, Polyline> polylines = {};
+  // Map<PolylineId, Polyline> polylines = {};
 
-  @override
-  void initState() {
-    super.initState();
-    getLocationUpdates().then(
-      (_) => {
-        getPolylinePoints().then((coordinates) => {
-          generatePolylineFromPoints(coordinates),
-        }),
-      }
-    );
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getLocationUpdates().then(
+  //     (_) => {
+  //       getPolylinePoints().then((coordinates) => {
+  //         generatePolylineFromPoints(coordinates),
+  //       }),
+  //     }
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _MapsPageState extends State<MapsPage> {
               position: _pApplePark,
             )
           },
-          polylines: Set<Polyline>.of(polylines.values),
+          // polylines: Set<Polyline>.of(polylines.values),
       ),
     );
   }
@@ -108,37 +108,37 @@ class _MapsPageState extends State<MapsPage> {
     });
   }
 
-  Future<List<LatLng>> getPolylinePoints() async {
-    List<LatLng> polylineCoordinates = [];
-    PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: GOOGLE_MAPS_API_KEY,
-      request: PolylineRequest(
-        origin: PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude), 
-        destination: PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
-        mode: TravelMode.walking,
-      ),
-    );
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    } else {
-      print(result.errorMessage);
-    }
-    return polylineCoordinates;
-  }
+  // Future<List<LatLng>> getPolylinePoints() async {
+  //   List<LatLng> polylineCoordinates = [];
+  //   PolylinePoints polylinePoints = PolylinePoints();
+  //   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //     googleApiKey: GOOGLE_MAPS_API_KEY,
+  //     request: PolylineRequest(
+  //       origin: PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude), 
+  //       destination: PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
+  //       mode: TravelMode.walking,
+  //     ),
+  //   );
+  //   if (result.points.isNotEmpty) {
+  //     result.points.forEach((PointLatLng point) {
+  //       polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  //     });
+  //   } else {
+  //     print(result.errorMessage);
+  //   }
+  //   return polylineCoordinates;
+  // }
 
-  void generatePolylineFromPoints(List<LatLng> polylineCoordinates) async {
-    PolylineId id = PolylineId("poly");
-    Polyline polyline = Polyline(
-      polylineId: id, 
-      color: Colors.blue,
-      points: polylineCoordinates,
-      width: 8,
-    );
-    setState(() {
-      polylines[id] = polyline;
-    });
-  }
+  // void generatePolylineFromPoints(List<LatLng> polylineCoordinates) async {
+  //   PolylineId id = PolylineId("poly");
+  //   Polyline polyline = Polyline(
+  //     polylineId: id, 
+  //     color: Colors.blue,
+  //     points: polylineCoordinates,
+  //     width: 8,
+  //   );
+  //   setState(() {
+  //     polylines[id] = polyline;
+  //   });
+  // }
 }
