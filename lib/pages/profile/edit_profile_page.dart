@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   @override
@@ -11,21 +9,34 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final user = FirebaseAuth.instance.currentUser!;
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
   bool _isUpdating = false;
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = user.displayName ?? "";
-    _emailController.text = user.email ?? "";
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    DocumentSnapshot userDoc = 
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+
+    if (userDoc.exists) {
+      Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;
+      _firstNameController.text = data['first name'] ?? "";
+      _lastNameController.text = data['last name'] ?? "";
+      _ageController.text = data['age']?.toString() ?? "";
+    }
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _ageController.dispose();
     super.dispose();
   }
 
@@ -33,16 +44,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     setState(() {
       _isUpdating = true;
     });
+
     try {
-      await user.updateDisplayName(_nameController.text);
-      await user.reload();
-      FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+        'first name': _firstNameController.text.trim(),
+        'last name': _lastNameController.text.trim(),
+        'age': int.tryParse(_ageController.text.trim()) ?? 0,
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Profile updated successfully!")),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error updating profile: \$e")),
+        SnackBar(content: Text("Error updating profile: $e")),
       );
     } finally {
       setState(() {
@@ -54,26 +69,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text("Update Profile"), backgroundColor: Colors.green[400]),
+      appBar: AppBar(title: Text("Update Profile"), backgroundColor: Colors.green[400]),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildProfileAvatar(),
+            _buildTextField("First Name", _firstNameController),
             SizedBox(height: 20),
-            _buildTextField("Name", _nameController),
+            _buildTextField("Last Name", _lastNameController),
             SizedBox(height: 20),
-            _buildTextField("Email", _emailController, readOnly: true),
+            _buildTextField("Age", _ageController, isNumber: true),
             SizedBox(height: 30),
             ElevatedButton(
               onPressed: _isUpdating ? null : _updateProfile,
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: Colors.green[400]),
-              child: _isUpdating
-                  ? CircularProgressIndicator()
-                  : Text("Save Changes"),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green[400]),
+              child: _isUpdating ? CircularProgressIndicator() : Text("Save Changes"),
             ),
           ],
         ),
@@ -81,79 +92,21 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller,
-      {bool readOnly = false}) {
+  Widget _buildTextField(String label, TextEditingController controller, {bool isNumber = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
         TextField(
           controller: controller,
-          readOnly: readOnly,
+          keyboardType: isNumber ? TextInputType.number : TextInputType.text,
           decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
           ),
         ),
       ],
     );
   }
-
-  Widget _buildProfileAvatar() {
-    return GestureDetector(
-      onTap: _isUpdating ? null : _updateAvatar,
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 4),
-        ),
-        child: CircleAvatar(
-          backgroundImage:
-              user.photoURL != null ? NetworkImage(user.photoURL!) : null,
-          child:
-              user.photoURL == null ? const Icon(Icons.person, size: 50) : null,
-          radius: 50,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _updateAvatar() async {
-    final ImagePicker _picker = ImagePicker();
-
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _isUpdating = true;
-      });
-
-      try {
-        final File file = File(pickedFile.path);
-        final storageRef = FirebaseStorage.instance
-            .ref()
-            .child('user_avatars/${user.uid}.jpg');
-        await storageRef.putFile(file);
-        final photoURL = await storageRef.getDownloadURL();
-
-        await user.updatePhotoURL(photoURL);
-        await user.reload();
-        FirebaseAuth.instance.currentUser;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Avatar updated successfully!")),
-        );
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error updating avatar: $e")),
-        );
-      } finally {
-        setState(() {
-          _isUpdating = false;
-        });
-      }
-    }
-  }
 }
+

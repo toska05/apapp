@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:apapp/pages/logging_in/forgot_pw_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -12,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();  
 
@@ -113,29 +111,6 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ),
 
-                // const SizedBox(height: 7),
-
-                // GestureDetector(
-                //   onTap: (){
-                //     Navigator.push(
-                //       context, 
-                //       MaterialPageRoute(
-                //         builder: (context) {
-                //           return ForgotPasswordPage();
-                //         },
-                //       ),
-                //     );
-                //   },
-                //   child: Text(
-                //     'Forgot Password?',
-                //     style: TextStyle(
-                //     color: Colors.green[300]!,
-                //     fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-            
-                //sign in button
                 const SizedBox(height: 15),
             
                 Padding(
@@ -165,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
             
                 //register
-            
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

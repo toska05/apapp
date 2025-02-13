@@ -1,5 +1,6 @@
 import 'package:apapp/auth/auth_page.dart';
 import 'package:apapp/pages/profile/edit_profile_page.dart';
+import 'package:apapp/pages/profile/fetch_data.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:apapp/auth/main_page.dart';
@@ -14,26 +15,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final user = FirebaseAuth.instance.currentUser!;
   bool isLightMode = false;
-
-  // Se crean los controladores para 'Name' y 'Email'
-  late final TextEditingController _nameController;
-  late final TextEditingController _emailController;
-
-  @override
-  void initState() {
-    super.initState();
-    // Inicializamos los controladores con la información del usuario
-    _nameController = TextEditingController(text: user.displayName ?? "");
-    _emailController = TextEditingController(text: user.email ?? "");
-    print(user);
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    super.dispose();
-  }
 
   void logout() {
     FirebaseAuth.instance.signOut();
@@ -55,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
+  
   AppBar _buildAppBar() {
     return AppBar(
       title: const Text('Profile'),
@@ -85,12 +66,10 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildTextField('Name', _nameController),
-                const SizedBox(height: 30),
-                _buildTextField('Email', _emailController),
-                const SizedBox(height: 30),
+                GetUserInfo(documentId: user.uid),
+                const SizedBox(height: 150),
                 CustomSwitch(),
-                const SizedBox(height: 80),
+                const SizedBox(height: 30),
                 _buildButton('Edit', Colors.green[400]!, () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => UpdateProfilePage()),
@@ -163,29 +142,9 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundImage:
             user.photoURL != null ? NetworkImage(user.photoURL!) : null,
         child:
-            user.photoURL == null ? const Icon(Icons.person, size: 50) : null,
+            user.photoURL == null ? Image.asset("assets/logo.png", height: 30) : null,
         radius: 50,
       ),
-    );
-  }
-
-  Widget _buildTextField(String label, TextEditingController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-        TextField(
-          controller: controller,
-          readOnly: true,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
