@@ -71,8 +71,10 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
+      body: _weather == null ? const Center(
+        child: Text("Loading..."),
+      )
+      : Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
