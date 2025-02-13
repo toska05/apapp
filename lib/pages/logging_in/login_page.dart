@@ -12,21 +12,48 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //text controllers
+  // Text controllers
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();  
+  final _passwordController = TextEditingController();
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
-  }
-
+  // Tracks whether the password is visible or not.
   bool isPasswordVisible = false;
 
-  @override
+  Future signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      
+    } on FirebaseAuthException catch (e) {
+      // Display error message via a SnackBar
+      if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+        content: Text('Please fill in all fields.'),
+        backgroundColor: Colors.red[600],
+          ),
+        );
+        return;
+      }
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+        e.code == 'user-not-found'
+            ? 'No user found for that email.'
+            : e.code == 'invalid-credential'
+            ? 'Invalid email or password.'
+            : 'An error occurred. Please try again later.',
+          ),
+          backgroundColor: Colors.red[600],
+        ),
+      );
+    }
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -45,20 +72,16 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
                 Text(
                   'Hello Again',
-                  style: GoogleFonts.bebasNeue(
-                    fontSize: 55
-                  ),
+                  style: GoogleFonts.bebasNeue(fontSize: 55),
                 ),
                 const SizedBox(height: 10),
                 const Text(
                   'Welcome back, you\'ve been missed!',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+                  style: TextStyle(fontSize: 20),
                 ),
                 const SizedBox(height: 40),
-            
-                //email
+
+                // Email field
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
@@ -69,31 +92,35 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color.fromARGB(255, 26, 14, 84)),
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 26, 14, 84),
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Email',
                       fillColor: Colors.grey[200],
                       filled: true,
                     ),
-                  )
+                  ),
                 ),
-            
-                //password
+
                 const SizedBox(height: 10),
-                
+
+                // Password field
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: TextField(
                     controller: _passwordController,
-                    obscureText: isPasswordVisible,
+                    obscureText: !isPasswordVisible,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color.fromARGB(255, 26, 14, 84)),
+                        borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 26, 14, 84),
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Password',
@@ -101,16 +128,18 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
-                          isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
                         onPressed: () {
                           setState(() {
                             isPasswordVisible = !isPasswordVisible;
                           });
                         },
-                      )
+                      ),
                     ),
-                  )
+                  ),
                 ),
 
                 // const SizedBox(height: 7),
@@ -137,51 +166,49 @@ class _LoginPageState extends State<LoginPage> {
             
                 //sign in button
                 const SizedBox(height: 15),
-            
+
+                // Sign in button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: GestureDetector(
                     onTap: signIn,
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         color: Colors.green[300],
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Sign in',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18
-                          )
+                            fontSize: 18,
+                          ),
                         ),
-                      )
+                      ),
                     ),
                   ),
                 ),
-            
+
                 const SizedBox(height: 10),
-            
-                //register
-            
+
+                // Register link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Not a member? ',
-                      style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
                       onTap: widget.showRegisterPage,
                       child: Text(
                         'Register Now',
                         style: TextStyle(
-                        color: Colors.green[300]!,
-                        fontWeight: FontWeight.bold,
+                          color: Colors.green[300]!,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -190,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        )
+        ),
       ),
     );
   }
