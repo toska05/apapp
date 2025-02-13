@@ -1,3 +1,4 @@
+import 'package:apapp/auth/auth_page.dart';
 import 'package:apapp/pages/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,7 +43,16 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildProfileContent(),
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return _buildProfileContent();
+          } else {
+            return AuthPage();
+          }
+        },
+      ),
     );
   }
 
