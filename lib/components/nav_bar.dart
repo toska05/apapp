@@ -62,7 +62,7 @@ Widget build(BuildContext context) {
             ),
             GButton(
               icon: Icons.location_on,
-              text: 'Location',
+              text: 'Maps',
               textSize: 5,
               iconSize: 20,
               gap: 4,
