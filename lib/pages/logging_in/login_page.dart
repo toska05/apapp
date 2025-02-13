@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:apapp/pages/forgot_pw_page.dart';
+// import 'package:apapp/pages/logging_in/forgot_pw_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Password',
-                      fillColor: Colors.grey[100],
+                      fillColor: Colors.grey[200],
                       filled: true,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -113,27 +113,27 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ),
 
-                const SizedBox(height: 7),
+                // const SizedBox(height: 7),
 
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ForgotPasswordPage();
-                        },
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                    color: Colors.green[300]!,
-                    fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: (){
+                //     Navigator.push(
+                //       context, 
+                //       MaterialPageRoute(
+                //         builder: (context) {
+                //           return ForgotPasswordPage();
+                //         },
+                //       ),
+                //     );
+                //   },
+                //   child: Text(
+                //     'Forgot Password?',
+                //     style: TextStyle(
+                //     color: Colors.green[300]!,
+                //     fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
             
                 //sign in button
                 const SizedBox(height: 15),
