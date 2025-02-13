@@ -48,6 +48,20 @@ class _CameraState extends State<Camera> {
             child: CameraPreview(cameraController!),
           ),
           Positioned(
+            top: 20,
+            left: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              backgroundColor: Colors.grey[600],
+              child: const Icon(
+                Icons.arrow_back,
+                size: 30,
+              ),
+            )
+          ),
+          Positioned(
             bottom: 20, // Adjust the position of the buttons
             left: 0,
             right: 0,

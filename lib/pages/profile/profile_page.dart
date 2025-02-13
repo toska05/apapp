@@ -1,7 +1,9 @@
 import 'package:apapp/pages/profile/edit_profile_page.dart';
+import 'package:apapp/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:apapp/auth/main_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -191,25 +193,25 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class CustomSwitch extends StatefulWidget {
-  @override
-  _CustomSwitchState createState() => _CustomSwitchState();
-}
 
-class _CustomSwitchState extends State<CustomSwitch> {
-  bool isLightMode = false;
+
+class CustomSwitch extends HookConsumerWidget {
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeStateNotifier);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       spacing: 20,
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              isLightMode = !isLightMode;
-            });
+            if (appThemeState.isDarkMode) {
+              appThemeState.setLightTheme();
+            } else {
+              appThemeState.setDarkTheme();
+            }
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
@@ -220,14 +222,14 @@ class _CustomSwitchState extends State<CustomSwitch> {
               borderRadius: BorderRadius.circular(25),
               image: DecorationImage(
                 image: AssetImage(
-                  isLightMode ? 'assets/day_mode.png' : 'assets/night_mode.png',
+                  appThemeState.isDarkMode ? 'assets/night_mode.png' : 'assets/day_mode.png' ,
                 ),
                 fit: BoxFit.cover,
               ),
             ),
             child: Align(
               alignment:
-                  isLightMode ? Alignment.centerRight : Alignment.centerLeft,
+                  appThemeState.isDarkMode ? Alignment.centerRight : Alignment.centerLeft,
               child: Container(
                 width: 40,
                 height: 40,
@@ -246,8 +248,8 @@ class _CustomSwitchState extends State<CustomSwitch> {
             ),
           ),
         ),
-        if (isLightMode) const Text('Light Mode'),
-        if (!isLightMode) const Text('Dark Mode')
+        if (appThemeState.isDarkMode) const Text('Dark Mode'),
+        if (!appThemeState.isDarkMode) const Text('Light Mode')
       ],
     );
   }
