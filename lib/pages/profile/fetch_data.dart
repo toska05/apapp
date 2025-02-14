@@ -30,11 +30,11 @@ class GetUserInfo extends StatelessWidget {
           children: [
             Text(
               "${data['first name']} ${data['last name']}",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
             Text(
               "${data['email']}",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
               "${data['age']} years old",

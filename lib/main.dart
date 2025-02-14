@@ -1,11 +1,9 @@
 import 'package:apapp/themes/app_theme.dart';
-import 'package:apapp/themes/dark_mode.dart';
-import 'package:apapp/themes/light_mode.dart';
 import 'package:apapp/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:apapp/auth/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {

@@ -2,6 +2,7 @@ import 'package:apapp/auth/auth_page.dart';
 import 'package:apapp/pages/profile/edit_profile_page.dart';
 import 'package:apapp/themes/theme_provider.dart';
 import 'package:apapp/pages/profile/fetch_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:apapp/auth/main_page.dart';
@@ -117,22 +118,26 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _deleteAccount() async {
-    //TODO : fix
-    try {
-      await user.delete().then((_) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const MainPage()),
-        );
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $error')),
-        );
-      });
-      Navigator.of(context).pop();
-    } catch (e) {
-      print(e);
-    }
+  try {
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
+    await user.delete().then((_) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MainPage()),
+      );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $error')),
+      );
+    });
+
+    Navigator.of(context).pop();
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error deleting account: $e")),
+    );
   }
+}
+
 
   Widget _buildProfileAvatar() {
     return Container(
