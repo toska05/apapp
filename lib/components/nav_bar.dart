@@ -47,7 +47,6 @@ Widget build(BuildContext context) {
     ),
     bottomNavigationBar: Material(
       elevation: 10.0, // Shadow effect
-      color: Colors.white, // Background color
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 5.0),
         child: GNav(

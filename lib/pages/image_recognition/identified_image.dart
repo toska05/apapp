@@ -236,7 +236,7 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                   padding: const EdgeInsets.all(16.0),
                   height: MediaQuery.of(context).size.height * 0.5,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    // color: Colors.white,
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(20)),
                     boxShadow: [
