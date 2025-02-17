@@ -236,7 +236,7 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                   padding: const EdgeInsets.all(16.0),
                   height: MediaQuery.of(context).size.height * 0.5,
                   decoration: const BoxDecoration(
-                    // color: Colors.white,
+                    color: Colors.white,
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(20)),
                     boxShadow: [
@@ -281,7 +281,7 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                         Text(
                           identifiedName ?? "Identifying...",
                           style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
+                              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                         const SizedBox(height: 10),
                         // Plant details
@@ -294,22 +294,22 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                                   const TextSpan(
                                       text: "Common Names: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$commonNames\n"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$commonNames\n", style: TextStyle(color: Colors.black)),
                                 ],
                                 if (family != null) ...[
                                   const TextSpan(
                                       text: "Family: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$family\n"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$family\n",  style: TextStyle(color: Colors.black)),
                                 ],
                                 if (genus != null) ...[
                                   const TextSpan(
                                       text: "Genus: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$genus"),
+                                          fontWeight: FontWeight.bold, color: Colors.black) ),
+                                  TextSpan(text: "$genus",  style: TextStyle(color: Colors.black)),
                                 ],
                               ],
                             ),
@@ -324,36 +324,36 @@ class _IdentifiedImagePageState extends State<IdentifiedImagePage> {
                                   const TextSpan(
                                       text: "Scientific Name: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$animalScientificName\n"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$animalScientificName\n",  style: TextStyle(color: Colors.black)),
                                 ],
                                 if (animalType != null) ...[
                                   const TextSpan(
                                       text: "Animal Type: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$animalType\n"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$animalType\n",  style: TextStyle(color: Colors.black)),
                                 ],
                                 if (animalHabitat != null) ...[
                                   const TextSpan(
                                       text: "Habitat: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$animalHabitat\n"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$animalHabitat\n",  style: TextStyle(color: Colors.black)),
                                 ],
                                 if (animalDiet != null) ...[
                                   const TextSpan(
                                       text: "Diet: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$animalDiet\n"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$animalDiet\n",  style: TextStyle(color: Colors.black)),
                                 ],
                                 if (animalLifespan != null) ...[
                                   const TextSpan(
                                       text: "Lifespan: ",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: "$animalLifespan years"),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  TextSpan(text: "$animalLifespan years",  style: TextStyle(color: Colors.black)),
                                 ],
                               ],
                             ),

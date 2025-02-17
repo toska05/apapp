@@ -45,22 +45,24 @@ class _CameraState extends State<Camera> {
       child: Stack(
         children: [
           SizedBox.expand(
-            child: CameraPreview(cameraController!),
+            child: RotatedBox(
+              quarterTurns: 1, // Adjust this value as needed
+              child: CameraPreview(cameraController!),
+            ),
           ),
           Positioned(
-            top: 20,
-            left: 20,
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              backgroundColor: Colors.grey[600],
-              child: const Icon(
-                Icons.arrow_back,
-                size: 30,
-              ),
-            )
-          ),
+              top: 20,
+              left: 20,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                backgroundColor: Colors.grey[600],
+                child: const Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                ),
+              )),
           Positioned(
             bottom: 20, // Adjust the position of the buttons
             left: 0,
@@ -78,8 +80,8 @@ class _CameraState extends State<Camera> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              IdentifiedImagePage(image: pickedFile, type: widget.type),
+                          builder: (context) => IdentifiedImagePage(
+                              image: pickedFile, type: widget.type),
                         ),
                       );
                     }
@@ -100,8 +102,8 @@ class _CameraState extends State<Camera> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            IdentifiedImagePage(image: picture, type: widget.type),
+                        builder: (context) => IdentifiedImagePage(
+                            image: picture, type: widget.type),
                       ),
                     );
                   },
